@@ -1,9 +1,6 @@
 # Pet-project-PDH-
 PDH is a personal tracking and data analysis system where you can import data from various sources (steps, sleep, expenses, tasks, weather, social media API, etc.), store them in a database and analyze
 
-![FastAPI](https://img.shields.io/badge/FastAPI-0.95.0-green)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
-![Docker](https://img.shields.io/badge/Docker-Ready-blue)
 
 This is backend application on **FastAPI** and **PostgreSQL** for storing and processing personal data.  
 The project implements registration, authorization (JWT), CRUD operations with data, and launch via Docker.
