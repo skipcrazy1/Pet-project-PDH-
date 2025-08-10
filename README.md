@@ -1,9 +1,11 @@
 # Pet-project-PDH-
-PDH is a personal tracking and data analysis system where you can import data from various sources (steps, sleep, expenses, tasks, weather, social media API, etc.), store them in a database and analyze
+
+## О проекте
+Personal Data Hub (PDH) – это личная система трекинга и анализа данных куда можно импортировать данные из разных источников(шаги, сон, расходы, задачи, погода, API соцсетей и т.д.), хранить их в базе и анализировать
 
 
-This is backend application on **FastAPI** and **PostgreSQL** for storing and processing personal data.  
-The project implements registration, authorization (JWT), CRUD operations with data, and launch via Docker.
+Бэкенд-приложение на **FastAPI** и **PostgreSQL** для хранения и обработки персональных данных.  
+Проект реализует регистрацию, авторизацию (JWT), CRUD-операции с данными и запуск через Docker.
 
 ---
 
