@@ -35,6 +35,7 @@ The project implements registration, authorization (JWT), CRUD operations with d
 ### 1. Клонировать репозиторий
 
 git clone https://github.com/username/pdh-backend.git
+
 cd pdh-backend
 
 ### 2. Запуск с Docker
