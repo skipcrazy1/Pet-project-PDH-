@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Personal Data Hub - Минимальный фронтенд</title>
+</head>
+<body>
+<h1>Логин и создание заметки</h1>
+
+<label>Email: <input id="email" value="test@example.com" /></label><br />
+<label>Пароль: <input id="password" type="password" value="password123" /></label><br />
+<button onclick="login()">Войти</button>
+
+<div id="token" style="margin-top:10px; word-wrap: break-word;"></div>
+
+<hr />
+
+<label>Заголовок заметки: <input id="noteTitle" /></label><br />
+<label>Текст заметки: <textarea id="noteContent"></textarea></label><br />
+<button onclick="createNote()">Создать заметку</button>
+
+<div id="notes" style="margin-top:20px;"></div>
+
+<script>
+let token = "";
+
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const resp = await fetch("http://localhost:8000/auth/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      username: email,
+      password: password,
+    }),
+  });
+
+  if (resp.ok) {
+    const data = await resp.json();
+    token = data.access_token;
+    document.getElementById("token").innerText = "Токен: " + token;
+    loadNotes();
+  } else {
+    alert("Ошибка логина");
+  }
+}
+
+async function createNote() {
+  const title = document.getElementById("noteTitle").value;
+  const content = document.getElementById("noteContent").value;
+
+  if (!token) {
+    alert("Сначала войдите");
+    return;
+  }
+
+  const resp = await fetch("http://localhost:8000/data/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ title, content }),
+  });
+
+  if (resp.ok) {
+    alert("Заметка создана!");
+    loadNotes();
+  } else {
+    alert("Ошибка создания заметки");
+  }
+}
+
+async function loadNotes() {
+  if (!token) return;
+
+  const resp = await fetch("http://localhost:8000/data/", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (resp.ok) {
+    const notes = await resp.json();
+    const container = document.getElementById("notes");
+    container.innerHTML = "<h2>Ваши заметки:</h2>";
+    notes.forEach((note) => {
+      const div = document.createElement("div");
+      div.innerHTML = `<b>${note.title}</b><br />${note.content}<hr />`;
+      container.appendChild(div);
+    });
+  }
+}
+</script>
+</body>
+</html>
